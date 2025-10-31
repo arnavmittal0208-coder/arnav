@@ -3,6 +3,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 // Firebase config (provided)
 const firebaseConfig = {
@@ -27,7 +28,8 @@ try {
   // console.log('Analytics not initialized:', e?.message);
 }
 
-// Export Firestore database for use in the app
+// Export Firestore database and Storage for use in the app
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export default app;

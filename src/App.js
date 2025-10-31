@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ExchangeSkill from './ExchangeSkill';
 import TaskMarketplace from './TaskMarketplace';
+import CampusCommunity from './CampusCommunity';
 
 // Dummy Component (used for links that are placeholders)
 const DummyPage = ({ title }) => (
@@ -41,9 +42,9 @@ const Home = () => (
         <p>Task Marketplace</p>
       </Link>
 
-      <Link to="/community" className="option-card dummy">
-        <span role="img" aria-label="community">👥</span>
-        <p>College Community</p>
+      <Link to="/community" className="option-card main-func">
+        <span role="img" aria-label="community">🎓</span>
+        <p>Campus Community</p>
       </Link>
 
       <Link to="/rewards" className="option-card dummy">
@@ -73,7 +74,7 @@ function App() {
         {/* Dummy routes */}
         <Route path="/teach" element={<DummyPage title="Teach a Skill" />} />
         <Route path="/learn" element={<DummyPage title="Learn a Skill" />} />
-        <Route path="/community" element={<DummyPage title="Campus Circle" />} />
+        <Route path="/community" element={<CampusCommunity />} />
         <Route path="/rewards" element={<DummyPage title="Rewards & Wallet" />} />
         <Route path="/profile" element={<DummyPage title="Profile Page" />} />
         <Route path="/notes" element={<DummyPage title="Notes" />} />

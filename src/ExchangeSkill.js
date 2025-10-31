@@ -51,7 +51,10 @@ const ExchangeSkill = () => {
   const acceptProposal = async (swap) => {
     try {
       const ref = doc(db, 'swaps', swap.id);
-      await updateDoc(ref, { status: 'Approved', approvedBy: 'You (demo)' });
+      await updateDoc(ref, { 
+        status: 'Approved', 
+        approvedBy: 'You (demo)'
+      });
       alert('Swap approved! You can start a video session.');
     } catch (err) {
       console.error(err);

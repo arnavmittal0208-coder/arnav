@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /resources/{fileName} {
+      // Allow anyone to read and write to the resources folder (for demo/hackathon)
+      allow read, write: if true;
+    }
+  }
+}
