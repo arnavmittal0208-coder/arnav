@@ -81,14 +81,26 @@ const ExchangeSkill = () => {
       <button className="fab" title="Propose" onClick={()=>setIsProposing(true)}>+</button>
 
       {isProposing && (
-        <div style={{position:'fixed', inset:0, display:'flex', alignItems:'center', justifyContent:'center', background:'rgba(0,0,0,0.45)'}}>
-          <form onSubmit={propose} style={{background:'#fff', padding:20, borderRadius:8, width:360}}>
-            <h3>Propose Swap</h3>
-            <input value={offer} onChange={(e)=>setOffer(e.target.value)} placeholder="I offer (e.g., Python)" required style={{width:'100%', padding:8, margin:'8px 0'}}/>
-            <input value={want} onChange={(e)=>setWant(e.target.value)} placeholder="I want (e.g., UI/UX)" required style={{width:'100%', padding:8, margin:'8px 0'}}/>
-            <div style={{display:'flex', gap:8}}>
-              <button type="submit" style={{flex:1, padding:10, background:'#007bff', color:'#fff', border:'none', borderRadius:6}}>Submit</button>
-              <button type="button" onClick={()=>setIsProposing(false)} style={{flex:1, padding:10, background:'#dc3545', color:'#fff', border:'none', borderRadius:6}}>Cancel</button>
+        <div style={{position:'fixed', inset:0, display:'flex', alignItems:'center', justifyContent:'center', background:'rgba(0,0,0,0.45)', zIndex:1000, padding:'16px'}}>
+          <form onSubmit={propose} style={{background:'#fff', padding:20, borderRadius:8, width:'100%', maxWidth:400}}>
+            <h3 style={{marginTop:0}}>Propose Swap</h3>
+            <input 
+              value={offer} 
+              onChange={(e)=>setOffer(e.target.value)} 
+              placeholder="I offer (e.g., Python)" 
+              required 
+              style={{width:'100%', padding:'10px 12px', margin:'8px 0', fontSize:'14px', borderRadius:6, border:'1px solid #ddd', boxSizing:'border-box'}}
+            />
+            <input 
+              value={want} 
+              onChange={(e)=>setWant(e.target.value)} 
+              placeholder="I want (e.g., UI/UX)" 
+              required 
+              style={{width:'100%', padding:'10px 12px', margin:'8px 0', fontSize:'14px', borderRadius:6, border:'1px solid #ddd', boxSizing:'border-box'}}
+            />
+            <div style={{display:'flex', gap:8, marginTop:12}}>
+              <button type="submit" style={{flex:1, padding:'12px', background:'#007bff', color:'#fff', border:'none', borderRadius:6, fontSize:'14px', fontWeight:600, cursor:'pointer'}}>Submit</button>
+              <button type="button" onClick={()=>setIsProposing(false)} style={{flex:1, padding:'12px', background:'#dc3545', color:'#fff', border:'none', borderRadius:6, fontSize:'14px', fontWeight:600, cursor:'pointer'}}>Cancel</button>
             </div>
           </form>
         </div>
@@ -98,39 +110,42 @@ const ExchangeSkill = () => {
         {swaps.length === 0 ? <p>No proposals yet. Create one!</p> :
           swaps.map(s => (
             <div key={s.id} className="swap-card">
-              <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                <div>
+              <div className="swap-header">
+                <div style={{flex:1}}>
                   <div style={{fontWeight:700}}>{s.proposer}</div>
-                  <div style={{fontSize:13, color:'#555'}}>Offers: <strong>{s.offers}</strong> — Wants: <strong>{s.wants}</strong></div>
+                  <div style={{fontSize:13, color:'#555', marginTop:4}}>
+                    Offers: <strong>{s.offers}</strong> — Wants: <strong>{s.wants}</strong>
+                  </div>
                 </div>
-                <div style={{textAlign:'right'}}>
-                  <div style={{fontSize:13, color: s.status === 'Pending' ? 'orange' : 'green'}}>{s.status}</div>
+                <div>
+                  <div style={{fontSize:13, color: s.status === 'Pending' ? 'orange' : 'green', fontWeight:600}}>{s.status}</div>
                 </div>
               </div>
 
-              <div style={{marginTop:10, display:'flex', gap:8}}>
-                <div style={{display:'flex', gap:8, flex:1}}>
-                  {s.status === 'Pending' ? (
-                    <button onClick={()=>acceptProposal(s)} style={{padding:'8px 12px', background:'#28a745', color:'#fff', border:'none', borderRadius:6}}>Accept Swap</button>
-                  ) : (
-                    <button onClick={openMeet} style={{padding:'8px 12px', background:'#6f42c1', color:'#fff', border:'none', borderRadius:6}}>Start Video Session</button>
-                  )}
-                  
-                  {/* Delete button shown for all entries in demo */}
+              <div className="swap-actions">
+                {s.status === 'Pending' ? (
                   <button 
-                    onClick={() => deleteSwap(s.id)}
-                    style={{
-                      padding:'8px 12px', 
-                      background:'#dc3545', 
-                      color:'#fff', 
-                      border:'none', 
-                      borderRadius:6,
-                      marginLeft: 'auto'  // pushes to right
-                    }}
+                    onClick={()=>acceptProposal(s)} 
+                    style={{background:'#28a745', color:'#fff'}}
                   >
-                    Delete
+                    Accept Swap
                   </button>
-                </div>
+                ) : (
+                  <button 
+                    onClick={openMeet} 
+                    style={{background:'#6f42c1', color:'#fff'}}
+                  >
+                    Start Video Session
+                  </button>
+                )}
+                
+                <button 
+                  onClick={() => deleteSwap(s.id)}
+                  className="delete-btn"
+                  style={{background:'#dc3545', color:'#fff'}}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))

@@ -6,5 +6,9 @@ service firebase.storage {
       // Allow anyone to read and write to the resources folder (for demo/hackathon)
       allow read, write: if true;
     }
+    match /teaching-resources/{fileName} {
+      // Allow anyone to read and write to the teaching-resources folder (for demo/hackathon)
+      allow read, write: if true;
+    }
   }
 }
